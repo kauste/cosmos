@@ -1,0 +1,46 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+.bg-main{
+    background: rgba(0, 13, 255, 0.15);
+    background: linear-gradient(90deg, rgba(0, 13, 255, 0.15) 33%, rgba(0, 13, 255, 0) 100%);
+}
+
+.border-bright{
+    border-bottom: rgba(1, 6, 108, 0.937) solid 2px;
+    border-top: rgba(1, 6, 108, 0.937) solid 5px;
+}
+.border-bright-bottom{
+    border-bottom: rgba(1, 6, 108, 0.937) solid 1px;
+}
+// buttons
+.update-button{
+    border: rgba(1, 6, 108, 0.937) solid 2px;
+    color:rgba(1, 6, 108, 0.937);
+}
+.update-button:hover{
+    background: rgba(1, 6, 108, 0.937);
+    border: rgba(1, 6, 108, 0.937) solid 2px;
+    color:#fff;
+}
+
+.delete-button {
+    background: rgba(62, 0, 124, 0.534);
+    border: rgba(62, 0, 124, 0.534) solid 2px;
+
+}
+.delete-button:hover{
+    background-color: red;
+    border: red solid 2px;
+    box-shadow: 0px 0 0 3px red ;
+}
+.add-button {
+    border: rgba(62, 0, 124, 0.886) solid 2px;
+    color: rgba(62, 0, 124, 0.886);
+}
+.add-button:hover{
+    background: rgba(62, 0, 124, 0.534);
+}
