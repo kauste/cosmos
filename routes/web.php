@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\MineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,14 @@ Route::get('/edit/{country}', [CountryController::class, 'edit'])->name('edit');
 Route::put('/update/{country}', [CountryController::class, 'update'])->name('update');
 Route::delete('/delete/{country}', [CountryController::class, 'destroy'])->name('delete');
 });
+
+//mines
+Route::prefix('mines')->name('mine-')->group(function () {
+    Route::get('/', [MineController::class, 'index'])->name('list');
+    Route::get('/create', [MineController::class, 'create'])->name('create');
+    Route::post('/store', [MineController::class, 'store'])->name('store');
+    Route::get('/create-for-country/{country}', [MineController::class, 'create'])->name('create-for-country');
+    Route::get('/edit/{mine}', [MineController::class, 'edit'])->name('edit');
+    Route::put('/update/{mine}', [MineController::class, 'update'])->name('update');
+    Route::delete('/delete/{mine}', [MineController::class, 'destroy'])->name('delete');
+    });

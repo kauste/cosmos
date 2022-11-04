@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Mine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -56,9 +57,14 @@ class CountryController extends Controller
 
     public function edit(Country $country)
     {
+        $maxMinesInCountry = $country->amount_of_mines;
+        $minesNowInCountry = Mine::where('country_id', '=', $country->id)->count();
+        
         $title = 'Cosmos edit';
         return view('countries.edit', ['title '=> $title,
-                                        'country'=> $country]);
+                                        'country'=> $country,
+                                        'isMaxMines' => $maxMinesInCountry = $minesNowInCountry ? 1 : 0
+                                      ]);
     }
 
     /**

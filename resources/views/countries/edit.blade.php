@@ -24,6 +24,11 @@
                 <div class="col-xl-3 col-12 mt-3 d-flex justify-content-center">
                     <button type="submit" class="btn btn-outline-secondary update-button mb-3">Update</button>
                 </div>
+                <div class="col-12 d-flex justify-content-center gap-5 mb-2">
+                @if(!$isMaxMines)
+                    <a href="{{route('mine-create-for-country', $country)}}" class="btn btn-outline-secondary add-button">Add mines</a>
+                @endif
+                </div class="col-12 d-flex justify-content-around">
             </form>
         </div>
     </div>

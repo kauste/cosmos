@@ -28,6 +28,24 @@ class DatabaseSeeder extends Seeder
             'country_name' => $state,
             'amount_of_mines' => rand(1, 50),
         ]);
-      }
+        }
+
+        $names = [];
+        do {
+            $names[] = $faker->firstName;
+            $names = array_unique($names);
+        }while(count($names) != 30);
+
+        static $n = 0;
+        foreach($names as $name){
+            DB::table('mines')->insert([
+                'latitude' => $n,
+                'longitude' => $n,
+                'mine_name' => $name,
+                'country_id' => rand(1, count($states)),
+                'exploitation' => rand(100, 1000),
+            ]);
+          $n += 1;
+            }
     }
 }
