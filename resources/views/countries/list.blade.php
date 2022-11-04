@@ -25,10 +25,10 @@
                     <th scope="row">{{$country->country_name}}</th>
                     <td>0 ({{$country->amount_of_mines}})</td>
                     <td>
-                        <a href="#" class="btn btn-outline-secondary update-button">Update</a>
+                        <a href="{{route('country-edit', $country)}}" class="btn btn-outline-secondary update-button">Edit</a>
                     </td>
                     <td>
-                        <form method="post" action="">
+                        <form method="post" action="{{route('country-delete', $country)}}">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-secondary delete-button">Delete</button>

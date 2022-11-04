@@ -4,61 +4,61 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CountryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+        $title = 'Cosmos countries';
         $countries = Country::orderBy('country_name')->get();
-        return view('countries.list', ['countries'=> $countries]);
+        return view('countries.list', ['title '=> $title, 
+                                        'countries'=> $countries,]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('countries.create');
+        $title = 'Cosmos create';
+        return view('countries.create', ['title '=> $title,]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreCountryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreCountryRequest $request)
+    public function store(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
+        $request['country-name'] = trim($request['country-name']);
+        $validator = Validator::make($request->all(), [
+            'country-name' => ['required', 'min:3','max:50', 'unique:countries,country_name'],
+            'max-amount' => ['required', 'integer','min:1','max:50'],
+        ]);
+
+        // validateWithBag('msg')
+        // $validator->after(function($validator) use ($variable){
+        //     if (fn()) {
+        //         $validator->errors()->add('msg','Country cannot be included!'); 
+        //     }
+        // });
+
+        if($validator->fails()){
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $country = new Country;
+        $country->country_name = $request['country-name'];  
+        $country->amount_of_mines = $request['max-amount'];
+        $country->save();
+
+        return redirect()->route('country-list')->with('message', 'Country is added');
+    }
     public function show(Country $country)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Country $country)
     {
-        //
+        $title = 'Cosmos edit';
+        return view('countries.edit', ['title '=> $title,
+                                        'country'=> $country]);
     }
 
     /**
@@ -68,9 +68,20 @@ class CountryController extends Controller
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCountryRequest $request, Country $country)
+    public function update(Request $request, Country $country)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'max-amount' => ['required', 'integer','min:1','max:50'],
+        ]);
+        if($validator->fails()){
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+        $country->amount_of_mines = $request['max-amount'];
+        $country->save();
+
+        return redirect()->route('country-list')->with('message', 'Country info is edited');
     }
 
     /**
@@ -81,6 +92,7 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        //
+        $country->delete();
+        return redirect()->back()->with('message', $country->country_name.' is deteted');
     }
 }

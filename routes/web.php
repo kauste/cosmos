@@ -26,4 +26,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('countries')->name('country-')->group(function () {
 Route::get('/', [CountryController::class, 'index'])->name('list');
 Route::get('/create', [CountryController::class, 'create'])->name('create');
+Route::post('/store', [CountryController::class, 'store'])->name('store');
+Route::get('/edit/{country}', [CountryController::class, 'edit'])->name('edit');
+Route::put('/update/{country}', [CountryController::class, 'update'])->name('update');
+Route::delete('/delete/{country}', [CountryController::class, 'destroy'])->name('delete');
 });

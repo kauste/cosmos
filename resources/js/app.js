@@ -26,16 +26,18 @@ if(countryInputDOM){
                     completeHTML += '<option value="' + country + '">';
                 });
                 completedDOM.innerHTML = completeHTML;
+                console.log('if' + completedDOM.innerHTML);
             }
             else {
-                completedDOM.innerHTML ='<option value="No countries" disabled>';
+                completedDOM.innerHTML ='<option value="No countries" disabled/>';
+                console.log('else' + completedDOM.innerHTML);
             }
         })
         .catch((error) => {
             const completedDOM = document.querySelector('#completed-countries');
             if(error.response && error.response.status === 404) {
-                console.log(completedDOM);
-                completedDOM.innerHTML ='<option value="No countries" disabled>';
+                completedDOM.innerHTML ='<option value="No countries" disabled="disabled"/>';
+                console.log(error.response + completedDOM.innerHTML);
 
             }
         })
