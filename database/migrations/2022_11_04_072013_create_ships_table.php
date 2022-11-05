@@ -18,6 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('ship_name', 50)->unique();
             $table->foreignIdFor(Country::class)->onDelete('cascade');
+            $table->string('ship_pic', 200)->default('gelda.jpg');
             $table->timestamps();
         });
     }

@@ -15,7 +15,10 @@ class ShipController extends Controller
      */
     public function index()
     {
-        //
+        $ships = Ship::orderBy('ship_name')->get();
+
+        return view('ships.list', ['title' => 'List of ships',
+                                   'ships' => $ships]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use DB;
+use App\Models\Country;
 use Faker\Factory;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -30,14 +31,14 @@ class DatabaseSeeder extends Seeder
         ]);
         }
 
-        $names = [];
+        $namesMines = [];
         do {
-            $names[] = $faker->firstName;
-            $names = array_unique($names);
-        }while(count($names) != 30);
+            $namesMines[] = $faker->firstNameFemale;
+            $namesMines = array_unique($namesMines);
+        }while(count($namesMines) != 30);
 
         static $n = 0;
-        foreach($names as $name){
+        foreach($namesMines as $name){
             DB::table('mines')->insert([
                 'latitude' => $n,
                 'longitude' => $n,
@@ -47,5 +48,21 @@ class DatabaseSeeder extends Seeder
             ]);
           $n += 1;
             }
+
+         $namesShips = [];
+        do {
+            $namesShips[] = $faker->firstNameMale;
+            $namesShips = array_unique($namesShips);
+        }while(count($namesShips) != 60);
+
+        foreach($namesShips as $name){
+            DB::table('ships')->insert([
+                'ship_name' => $name,
+                'country_id' => rand(1, count($states)),
+            ]);
+        }
+     
+  
+        
     }
 }

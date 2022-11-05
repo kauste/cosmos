@@ -30,8 +30,9 @@ class CountryController extends Controller
             'country-name' => ['required', 'min:3','max:50', 'unique:countries,country_name'],
             'max-amount' => ['required', 'integer','min:1','max:50'],
         ]);
-
-        // validateWithBag('msg')
+        
+        // validateWithBag('msg');
+    
         // $validator->after(function($validator) use ($variable){
         //     if (fn()) {
         //         $validator->errors()->add('msg','Country cannot be included!'); 

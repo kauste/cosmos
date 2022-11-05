@@ -20,26 +20,35 @@ if(countryInputDOM){
             for(let i = 0; (countries.length < 5) ? (i < countries.length) : (i < 5); i++){
                 completeCountries.push(countries[i].name.common);
             }
-            console.log(completeCountries.length)
+            // console.log(completeCountries.length)
             if(completeCountries.length){
                 completeCountries.forEach(country => {
                     completeHTML += '<option value="' + country + '">';
                 });
                 completedDOM.innerHTML = completeHTML;
-                console.log('if' + completedDOM.innerHTML);
+                console.log( completedDOM);
             }
-            else {
-                completedDOM.innerHTML ='<option value="No countries" disabled/>';
-                console.log('else' + completedDOM.innerHTML);
-            }
+            // else {
+            //     completedDOM.innerHTML = '<option value="Nocountries"/>';
+            //     console.log('else' + completedDOM.innerHTML);
+            // }
         })
-        .catch((error) => {
-            const completedDOM = document.querySelector('#completed-countries');
-            if(error.response && error.response.status === 404) {
-                completedDOM.innerHTML ='<option value="No countries" disabled="disabled"/>';
-                console.log(error.response + completedDOM.innerHTML);
+        .catch(() => {
+            // setTimeout(() => {
+            //     const completedDOM = document.querySelector('#completed-countries');
+            //     let completeHTML = '';
+            //     [1,5,7].forEach(country => {
+            //         completeHTML += '<option value="' + country + '">';
+            //     });
+            //     completedDOM.innerHTML = completeHTML;
+            //     console.log( completedDOM);
+            //     console.log('hello')
+            // }, 100 )
+            // const completedDOM = document.querySelector('#completed-countries');
+            // if(error.response && error.response.status === 404) {
+                // completedDOM.innerHTML = '<option value="No countries">No countries</option>';
 
-            }
+            // }
         })
     });
 }
