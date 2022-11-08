@@ -71,13 +71,15 @@ if (countryInputDOM) {
     });
 }
 if (document.querySelector("input[name='longitude']")) {
+    //longitudes
     const longitudeInputDOM = document.querySelector("input[name='longitude']");
-    const latitudeInputDOM = document.querySelector("input[name='latitude']");
     const longitudeButtonDOM = document.querySelector('.longitude--button');
-    const latitudeButtonDOM = document.querySelector('.latitude--button');
     const longitudeAvailibleDOM = document.querySelector('.availible--longitude');
-    const latitudeAvailibleDOM = document.querySelector('.availible--latitude');
     const dontShowLongBtnDOM = document.querySelector('.dont--longitude--button');
+   //latitudes
+    const latitudeInputDOM = document.querySelector("input[name='latitude']");
+    const latitudeButtonDOM = document.querySelector('.latitude--button');
+    const latitudeAvailibleDOM = document.querySelector('.availible--latitude');
     const dontShowLatitudeBtnDOM = document.querySelector('.dont--latitude--button');
 
     const showLongitudes = () => {
@@ -93,15 +95,20 @@ if (document.querySelector("input[name='longitude']")) {
                     });
                     longitudeAvailibleDOM.innerHTML =
                         '<small>' + longitudesHTML + '</small>';
+                    });
                     dontShowLongitudes();
-                });
         });
     };
+    const longitudesRemove = () => {
+        if(longitudeAvailibleDOM.innerHTML != ''){
+            longitudeAvailibleDOM.innerHTML = '';
+            dontShowLongBtnDOM.classList.add('d-none');
+        }
+    }
     const dontShowLongitudes = () => {
         dontShowLongBtnDOM.classList.remove('d-none');
         dontShowLongBtnDOM.addEventListener('click', () => {
-            longitudeAvailibleDOM.innerHTML = '';
-            dontShowLongBtnDOM.classList.add('d-none');
+            longitudesRemove();
             longitudeButtonDOM.classList.remove('d-none');
         });
     };
@@ -119,25 +126,31 @@ if (document.querySelector("input[name='longitude']")) {
                     });
                     latitudeAvailibleDOM.innerHTML =
                         '<small>' + latitudesHTML + '</small>';
+                    });
                     dontShowLatitudes();
-                });
         });
     };
+    const latitudesRemove = () => {
+        if(latitudeAvailibleDOM.innerHTML != ''){
+            latitudeAvailibleDOM.innerHTML = '';
+            dontShowLatitudeBtnDOM.classList.add('d-none');
+        } 
+    }
     const dontShowLatitudes = () => {
         dontShowLatitudeBtnDOM.classList.remove('d-none');
         dontShowLatitudeBtnDOM.addEventListener('click', () => {
-            latitudeAvailibleDOM.innerHTML = '';
-            dontShowLatitudeBtnDOM.classList.add('d-none');
-            latitudeButtonDOM.classList.remove('d-none');
+            latitudesRemove();
+            latitudeButtonDOM.classList.remove('d-none')
         });
     };
     const buttonChange = () => {
+            longitudesRemove();
+            latitudesRemove();
         if (
             (longitudeInputDOM.value == '' && latitudeInputDOM.value == '') ||
             (longitudeInputDOM.value != '' && latitudeInputDOM.value != '')
         ) {
-            dontShowLongitudes();
-            dontShowLatitudes();
+            
             if (!longitudeButtonDOM.classList.contains('d-none')) {
                 longitudeButtonDOM.classList.add('d-none');
             }
@@ -171,23 +184,4 @@ if (document.querySelector("input[name='longitude']")) {
         buttonChange();
     });
 }
-// latitudeInputDOM.addEventListener('input', ()=> {
-//     if  (latitudeInputDOM.value != ''
-//         && longitudeInputDOM.value == ''){
-//             longitudeButtonDOM.classList.remove('d-none')
-//     };
-//     if  (latitudeInputDOM.value == ''
-//         && !longitudeButtonDOM.classList.contains('d-none')){
-//             longitudeButtonDOM.classList.add('d-none')
-//         }
 
-// })
-
-// latitudeInputDOM.addEventListener('input', ()=> {
-//     if  (latitudeInputDOM.value != ''){
-//         latitudeButtonDOM.classList.add('d-none');
-//     }
-//     if  (latitudeInputDOM.value == ''){
-//         latitudeButtonDOM.classList.remove('d-none');
-//     }
-// })

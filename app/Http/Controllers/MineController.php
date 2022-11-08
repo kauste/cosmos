@@ -192,4 +192,19 @@ class MineController extends Controller
         ]);
         
     }
+
+    public function showLatitude(Request $request){
+        $existingLatitudes = Mine::where('longitude', '=', $request->longitude)
+                ->select('latitude')
+               ->get()
+               ->pluck('latitude')
+               ->all();
+                
+        $availibleLatitudes =  array_diff(range(0,359), $existingLatitudes);
+        
+        return response()->json([
+                            'latitudes' => $availibleLatitudes
+        ]);
+        
+    }
 }
