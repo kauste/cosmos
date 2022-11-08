@@ -54,6 +54,7 @@
                     </div>
                     <div class="col-5 d-flex justify-content-center">
                         <button class="btn btn-outline-secondary add-button latitude--button d-none" type="button">Show availible</button>
+                        <button class="btn btn-outline-secondary add-button dont--latitude--button d-none " type="button">Don't show</button>
                     </div>
                 </div>
                 <div class="col-12 availible--latitude">
