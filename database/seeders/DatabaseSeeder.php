@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 use DB;
 use App\Models\Country;
+use App\Models\Ship;
+use App\Models\Mine;
 use Faker\Factory;
-
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+// use Database\Seeders\MineSeeder;
+// use Database\Seeders\ShipSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,50 +20,47 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-        $states = [];
-        do {
-            $states[] = $faker->state;
-            $states = array_unique($states);
-        }while(count($states) != 30);
+        Country::factory()
+                ->count(15)
+                ->create()
+                ->each(function ($country){
+                     Mine::factory()->hasAttached(
+                        Ship::factory()->count(3)->create(['country_id'=>$country->id])
+                     )
+                ->count(3)->create(['country_id'=>$country->id]);
+                 });
+        
+        // Ship::factory()->count(60)->create();
+        // $faker = Factory::create();
 
-        foreach($states as $state){
-        DB::table('countries')->insert([
-            'country_name' => $state,
-            'amount_of_mines' => rand(1, 50),
-        ]);
-        }
+        // foreach(range(1,10) as $_){
+        // DB::table('countries')->insert([
+        //     'country_name' => $faker->unique()->state,
+        //     'amount_of_mines' => rand(1, 50),
+        // ]);
+        // }
 
-        $namesMines = [];
-        do {
-            $namesMines[] = $faker->firstNameFemale;
-            $namesMines = array_unique($namesMines);
-        }while(count($namesMines) != 30);
+        // static $n = 0;
+        // foreach(range(1,30) as $_){
+        //     DB::table('mines')->insert([
+        //         'latitude' => $n,
+        //         'longitude' => $n,
+        //         'mine_name' => $faker->unique()->firstNameFemale,
+        //         'country_id' => rand(1, count($states)),
+        //         'exploitation' => rand(100, 1000),
+        //     ]);
+        //   $n += 1;
+        //     }
 
-        static $n = 0;
-        foreach($namesMines as $name){
-            DB::table('mines')->insert([
-                'latitude' => $n,
-                'longitude' => $n,
-                'mine_name' => $name,
-                'country_id' => rand(1, count($states)),
-                'exploitation' => rand(100, 1000),
-            ]);
-          $n += 1;
-            }
+        // foreach(range(1,60) as $_){
+        //     DB::table('ships')->insert([
+        //         'ship_name' => $faker->unique()->firstNameMale,
+        //         'country_id' => rand(1, count($states)),
+        //     ]);
+        // }
 
-         $namesShips = [];
-        do {
-            $namesShips[] = $faker->firstNameMale;
-            $namesShips = array_unique($namesShips);
-        }while(count($namesShips) != 60);
-
-        foreach($namesShips as $name){
-            DB::table('ships')->insert([
-                'ship_name' => $name,
-                'country_id' => rand(1, count($states)),
-            ]);
-        }
+        //////// $this->call(MineSeeder::class);
+        //////// $this->call(ShipSeeder::class);
      
   
         

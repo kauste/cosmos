@@ -8,6 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{$title ?? 'cosmos'}}</title>
+    <script>
+    const showLongitudeUrl = "{{route('show-longitude')}}"
+    const showLatitudeUrl = "{{route('show-latitude')}}"
+    </script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

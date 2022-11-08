@@ -44,8 +44,10 @@ Route::prefix('mines')->name('mine-')->group(function () {
     Route::put('/update/{mine}', [MineController::class, 'update'])->name('update');
     Route::delete('/delete/{mine}', [MineController::class, 'destroy'])->name('delete');
 });
+Route::get('show-longitude', [MineController::class, 'showLongitude'])->name('show-longitude');
+Route::get('show-latitude', [MineController::class, 'showLatitude'])->name('show-latitude');
 
-//mines
+//ships
 Route::prefix('ships')->name('ship-')->group(function () {
     Route::get('/', [ShipController::class, 'index'])->name('list');
     Route::get('/create', [ShipController::class, 'create'])->name('create');

@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Country;
+use Faker\Factory as Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Country>
@@ -14,10 +16,14 @@ class CountryFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Country::class;
+
     public function definition()
     {
+
         return [
-            //
+            'country_name' => fake()->unique()->state,
+            'amount_of_mines' => rand(1, 50),
         ];
     }
 }

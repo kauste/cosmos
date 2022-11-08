@@ -18,6 +18,7 @@ class MineController extends Controller
      */
     public function index()
     {
+
         $mines = Mine::orderBy('mine_name')->get();
 
         return view('mines.list', ['title' => 'List of mines',
@@ -33,8 +34,8 @@ class MineController extends Controller
     {
         $cntr = Country::where('id',$country)->first();
         $countries = Mine::join('countries', 'mines.country_id', '=', 'countries.id')
-                            ->select('countries.country_name', 'countries.amount_of_mines', DB::raw('COUNT(country_name) as count'))
-                            ->groupBy('countries.country_name', 'countries.amount_of_mines')
+                            ->select('countries.country_name', 'countries.id as id','countries.amount_of_mines', DB::raw('COUNT(country_name) as count'))
+                            ->groupBy('countries.country_name', 'countries.amount_of_mines', 'cosmos.countries.id')
                             ->havingRaw('COUNT(country_name) < amount_of_mines')
                             ->orderBy('country_name')
                             ->get();
@@ -57,6 +58,8 @@ class MineController extends Controller
         // $minesNowInCountry = Mine::where('country_id', '=', $request['country'])->count();
 
         $data = $request->all();
+        dump($data);
+
         $validator = Validator::make($data,
         [
             'mine-name'=> ['required', 'min:3', 'max:50', 'unique:mines,mine_name'],
@@ -130,6 +133,7 @@ class MineController extends Controller
     public function update(Request $request, Mine $mine)
     {
         $data = $request->all();
+
         $validator = Validator::make($data,
         [
             'mine-name'=> ['required', 'min:3', 'max:50', 'unique:mines,mine_name,'.$mine->id.'id'],
@@ -172,5 +176,20 @@ class MineController extends Controller
     {
         $mine->delete();
         return redirect()->back()->with('message', $mine->mine_name.' is deteted');
+    }
+
+    public function showLongitude(Request $request){
+        $existingLongitudes = Mine::where('latitude', '=', $request->latitude)
+                ->select('longitude')
+               ->get()
+               ->pluck('longitude')
+               ->all();
+                
+        $availibleLongitudes =  array_diff(range(0,359), $existingLongitudes);
+        
+        return response()->json([
+                            'longitudes' => $availibleLongitudes
+        ]);
+        
     }
 }

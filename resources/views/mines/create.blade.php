@@ -6,7 +6,7 @@
             <h2 class="border-bright p-3 pt-1">Add new mine @if($cntr)for <b>{{$cntr->country_name}}</b>@endif</h2>
         </div>
         <div class="col-xl-5 col-lg-6 col-md-9 col-sm-11 col-12 p-sm-5 p-1 pb-0 pl-3 pt-2 bg-main">
-            <form method="post"action="{{route('mine-store')}}"class="m-2 row align-items-center">
+            <form method="post" action="{{route('mine-store')}}" class="m-2 row align-items-center">
                 @if($cntr)
                 <div class="col-12 mb-4 d-flex gap-2 justify-content-start align-items-center">
                     <div class="col-3 mr-1 col-form-label">Country:</div>
@@ -31,17 +31,32 @@
                     </select>
                 </div>
                 @endif
-                <div class="col-6 mb-4 d-flex justify-content-start">
-                    <label for="longitude" class="col-6 col-form-label">Longitude: </label>
-                    <div class="col-5">
+                <div class="col-12 mb-4 d-flex justify-content-start">
+                    <div class="col-3 col-form-label">
+                        <label class="col-10" for="longitude">Longitude: </label>
+                    </div>
+                    <div class="col-3">
                         <input type="number" min="0" max="359" class="form-control" id="longitude" name="longitude">
                     </div>
+                    <div class=" col-5 d-flex justify-content-center">
+                        <button class="btn btn-outline-secondary add-button longitude--button d-none " type="button">Show availible</button>
+                        <button class="btn btn-outline-secondary add-button dont--longitude--button d-none " type="button">Don't show</button>
+                    </div>
                 </div>
-                <div class="col-6 mb-4 d-flex  justify-content-start">
-                    <label for="latitude" class="col-6 col-form-label">Latitude: </label>
-                    <div class="col-5">
+                <div class="col-12 availible--longitude">
+                </div>
+                <div class="col-12 mb-4 d-flex  justify-content-start">
+                    <div class="col-3 col-form-label">
+                        <label class="col-10" for="latitude">Latitude: </label>
+                    </div>
+                    <div class="col-3">
                         <input type="number" min="0" max="359" class="form-control" id="latitude" name="latitude">
                     </div>
+                    <div class="col-5 d-flex justify-content-center">
+                        <button class="btn btn-outline-secondary add-button latitude--button d-none" type="button">Show availible</button>
+                    </div>
+                </div>
+                <div class="col-12 availible--latitude">
                 </div>
                 <div class="col-12 mb-4 d-flex  justify-content-start">
                     <label for="exploitation" class="col-3 col-form-label">Digging capacity: </label>

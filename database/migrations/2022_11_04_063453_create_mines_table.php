@@ -16,8 +16,8 @@ return new class extends Migration
     {
         Schema::create('mines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('latitude');
-            $table->unsignedTinyInteger('longitude');
+            $table->unsignedMediumInteger('latitude');
+            $table->unsignedMediumInteger('longitude');
             $table->unique(['longitude', 'latitude']);
             $table->string('mine_name', 50)->unique();
             $table->foreignIdFor(Country::class)->onDelete('cascade');
