@@ -186,7 +186,7 @@ class MineController extends Controller
                ->all();
                 
         $availibleLongitudes =  array_diff(range(0,359), $existingLongitudes);
-        
+        dump($existingLongitudes);
         return response()->json([
                             'longitudes' => $availibleLongitudes
         ]);
@@ -201,7 +201,7 @@ class MineController extends Controller
                ->all();
                 
         $availibleLatitudes =  array_diff(range(0,359), $existingLatitudes);
-        
+        dump($availibleLatitudes);
         return response()->json([
                             'latitudes' => $availibleLatitudes
         ]);

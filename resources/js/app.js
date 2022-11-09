@@ -82,23 +82,7 @@ if (document.querySelector("input[name='longitude']")) {
     const latitudeAvailibleDOM = document.querySelector('.availible--latitude');
     const dontShowLatitudeBtnDOM = document.querySelector('.dont--latitude--button');
 
-    const showLongitudes = () => {
-        longitudeButtonDOM.addEventListener('click', () => {
-            longitudeButtonDOM.classList.add('d-none');
-            axios.get(showLongitudeUrl + '?latitude=' + latitudeInputDOM.value)
-                .then((res) => {
-                    const longitudes = res.data.longitudes;
-                    console.log(longitudes);
-                    let longitudesHTML = '';
-                    longitudes.forEach((longitude) => {
-                        longitudesHTML += longitude + ' ';
-                    });
-                    longitudeAvailibleDOM.innerHTML =
-                        '<small>' + longitudesHTML + '</small>';
-                    });
-                    dontShowLongitudes();
-        });
-    };
+    //longitudes
     const longitudesRemove = () => {
         if(longitudeAvailibleDOM.innerHTML != ''){
             longitudeAvailibleDOM.innerHTML = '';
@@ -112,24 +96,25 @@ if (document.querySelector("input[name='longitude']")) {
             longitudeButtonDOM.classList.remove('d-none');
         });
     };
-
-    const showLatitudes = () => {
-        latitudeButtonDOM.addEventListener('click', () => {
-            latitudeButtonDOM.classList.add('d-none');
-            axios.get(showLatitudeUrl + '?longitude=' + longitudeInputDOM.value)
-                .then((res) => {
-                    const latitudes = res.data.latitudes;
-                    console.log(latitudes);
-                    let latitudesHTML = '';
-                    latitudes.forEach((latitude) => {
-                        latitudesHTML += latitude + ' ';
-                    });
-                    latitudeAvailibleDOM.innerHTML =
-                        '<small>' + latitudesHTML + '</small>';
-                    });
-                    dontShowLatitudes();
-        });
+   const longitudesToHtml = () => {
+        longitudeButtonDOM.classList.add('d-none');
+        axios.get(showLongitudeUrl + '?latitude=' + latitudeInputDOM.value)
+            .then((res) => {
+                const longitudes = res.data.longitudes;
+                console.log(longitudes);
+                let longitudesHTML = '';
+                longitudes.forEach((longitude) => {
+                    longitudesHTML += longitude + ' ';
+                });
+                longitudeAvailibleDOM.innerHTML =
+                    '<small>' + longitudesHTML + '</small>';
+                });
+                dontShowLongitudes();
     };
+    const showLongitudes = () => {
+        longitudeButtonDOM.addEventListener('click',  longitudesToHtml)
+    };
+  //latitudes
     const latitudesRemove = () => {
         if(latitudeAvailibleDOM.innerHTML != ''){
             latitudeAvailibleDOM.innerHTML = '';
@@ -143,6 +128,25 @@ if (document.querySelector("input[name='longitude']")) {
             latitudeButtonDOM.classList.remove('d-none')
         });
     };
+    const latitudesToHtml = () => {
+        latitudeButtonDOM.classList.add('d-none');
+        axios.get(showLatitudeUrl + '?longitude=' + longitudeInputDOM.value)
+            .then((res) => {
+                const latitudes = res.data.latitudes;
+                console.log(latitudes);
+                let latitudesHTML = '';
+                latitudes.forEach((latitude) => {
+                    latitudesHTML += latitude + ' ';
+                });
+                latitudeAvailibleDOM.innerHTML =
+                    '<small>' + latitudesHTML + '</small>';
+                });
+                dontShowLatitudes();
+    }
+    const showLatitudes = () => {
+        latitudeButtonDOM.addEventListener('click', latitudesToHtml);
+    };
+//when to show button
     const buttonChange = () => {
             longitudesRemove();
             latitudesRemove();
@@ -178,9 +182,11 @@ if (document.querySelector("input[name='longitude']")) {
         }
     };
     latitudeInputDOM.addEventListener('input', () => {
+        longitudeButtonDOM.removeEventListener('click', longitudesToHtml);
         buttonChange();
     });
     longitudeInputDOM.addEventListener('input', () => {
+        latitudeButtonDOM.removeEventListener('click', latitudesToHtml);
         buttonChange();
     });
 }
