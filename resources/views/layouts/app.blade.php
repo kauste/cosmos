@@ -9,8 +9,9 @@
 
     <title>{{$title ?? 'cosmos'}}</title>
     <script>
-    const showLongitudeUrl = "{{route('show-longitude')}}"
-    const showLatitudeUrl = "{{route('show-latitude')}}"
+        const showLongitudeUrl = "{{route('show-longitude')}}"
+        const showLatitudeUrl = "{{route('show-latitude')}}"
+
     </script>
 
     <!-- Fonts -->
@@ -19,13 +20,31 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="shortcut icon" href="./../public/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="./../public/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./../public/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./../public/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./../public/favicon/site.webmanifest">
+    <link rel="mask-icon" href="./../public/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="theme-color" content="#ffffff">
+
+
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand logo" href="{{ url('/') }}">
-                    Cosmos
+                    <img src="{{asset('/favicon.ico')}}">
+                    Cosmos 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -54,7 +73,7 @@
                                 </a>
                             </div>
                         </li>
-                         <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Mines
                             </a>
@@ -67,7 +86,7 @@
                                 </a>
                             </div>
                         </li>
-                                                 <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Ships
                             </a>
