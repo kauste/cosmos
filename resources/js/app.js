@@ -9,11 +9,7 @@ const countryInputDOM = document.querySelector('.country--name');
 if (countryInputDOM) {
     countryInputDOM.addEventListener('input', (e) => {
         axios
-            .get(
-                'https://restcountries.com/v3.1/name/' +
-                    e.target.value.toLowerCase() +
-                    '?fields=name'
-            )
+            .get('https://restcountries.com/v3.1/name/' + e.target.value.toLowerCase() + '?fields=name')
             .then((res) => {
                 const completedDOM = document.querySelector(
                     '#completed-countries'
@@ -45,7 +41,6 @@ if (countryInputDOM) {
                         completeHTML += '<option value="' + country + '">';
                     });
                     completedDOM.innerHTML = completeHTML;
-                    console.log(completedDOM);
                 }
                 // else {
                 //     completedDOM.innerHTML = '<option value="Nocountries"/>';
@@ -133,8 +128,8 @@ if (document.querySelector("input[name='longitude']")) {
         axios.get(showLatitudeUrl + '?longitude=' + longitudeInputDOM.value)
             .then((res) => {
                 const latitudes = res.data.latitudes;
-                console.log(latitudes);
                 let latitudesHTML = '';
+                console.log(showLatitudeUrl + '?longitude=' + longitudeInputDOM.value);
                 latitudes.forEach((latitude) => {
                     latitudesHTML += latitude + ' ';
                 });

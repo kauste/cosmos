@@ -29,9 +29,19 @@
                     <th scope="row">{{$mine->mine_name}}</th>
                     <td>{{$mine->longitude}}&deg</td>
                     <td>{{$mine->latitude}}&deg</td>
+                    @if($mine->country)
                     <td>{{$mine->country->country_name}}</td>
-                    <td>{{$mine->exploitation}} <i>kh/24h</i></td>
-                    <td>To be continued</td>
+                    @else 
+                    <td class="no-variables">No country</td>
+                    @endif
+                    <td>{{$mine->exploitation}} <i>kg/24h</i></td>
+                    <td>
+                    @forelse ( $mine->ships as $key=> $ship )
+                            <small>{{$ship->ship_name}}@if(count($mine->ships)-1 > $key), @else.@endif</small>
+                        @empty
+                            <small class="no-variables">No ship added yet.</small>
+                        @endforelse
+                    </td>
                     <td>
                         <a href="{{route('mine-edit', $mine)}}" class="btn btn-outline-secondary update-button">Edit</a>
                     </td>

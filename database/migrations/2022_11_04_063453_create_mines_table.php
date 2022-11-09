@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedMediumInteger('longitude');
             $table->unique(['longitude', 'latitude']);
             $table->string('mine_name', 50)->unique();
-            $table->foreignIdFor(Country::class)->onDelete('cascade');
+            $table->foreignIdFor(Country::class)->nullable();
             $table->unsignedMediumInteger('exploitation');
             $table->timestamps();
         });

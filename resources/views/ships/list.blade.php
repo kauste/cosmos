@@ -26,12 +26,16 @@
                 <tr class="align-middle">
                     <th><img class="ship-img d-none d-md-flex" src="{{asset('/img/ship_img/'.$ship->ship_pic)}}"/></th>
                     <th scope="row">{{$ship->ship_name}}</th>
+                    @if($ship->country)
                     <td>{{$ship->country->country_name}}</td>
+                    @else
+                    <td class="no-variables">No country</td>
+                    @endif
                     <td>
-                    @forelse ($ship->mines as $mine)
-                        <small>{{$mine->mine_name}}</small>
+                    @forelse ($ship->mines as $key => $mine)
+                        <small >{{$mine->mine_name}}@if(count($ship->mines)-1 > $key), @else.@endif</small>
                     @empty
-                        
+                        <small class="no-variables">No mine added yet.</small>
                     @endforelse
                     </td>
                     <td>

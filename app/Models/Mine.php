@@ -19,6 +19,7 @@ class Mine extends Model
     public function ships(){
         return $this->belongsToMany(Ship::class);
     }
+    
     protected static function newMineFactory()
     {
         return MineFactory::new();

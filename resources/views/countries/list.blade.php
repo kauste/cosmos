@@ -16,6 +16,7 @@
                         <th scope="col teal">Country name</th>
                         <th scope="col">Mines (max mines)</th>
                         <th scope="col">List of mines</th>
+                        <th scope="col">List of ships</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -27,11 +28,18 @@
                     <th scope="row">{{$country->country_name}}</th>
                     <td>{{$country->mines()->count()}} ({{$country->amount_of_mines}})</td>
                     <td>
-                        
                         @forelse ( $country->mines as $key=> $mine )
                             <small>{{$mine->mine_name}}@if(count($country->mines)-1 > $key), @else.@endif</small>
                         @empty
-                            <small class="no-variables">No mines added yet.</small>
+                            <small class="no-variables">No mine added yet.</small>
+                        @endforelse
+                    </td>
+                       <td>
+                        
+                        @forelse ( $country->ships as $key=> $ship )
+                            <small>{{$ship->ship_name}}@if(count($country->ships)-1 > $key), @else.@endif</small>
+                        @empty
+                            <small class="no-variables">No ship added yet.</small>
                         @endforelse
                     </td>
                     <td>

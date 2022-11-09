@@ -25,6 +25,7 @@
                 <div class="col-12 mb-4 d-flex gap-1 justify-content-start">
                     <label for="country" class="col-3 mr-1 col-form-label">Country: </label>
                     <select class="col-7" name="country" id="country">
+                        <option value="null">No country</option>
                         @foreach ($countries as $country)
                         <option value="{{$country->id}}">{{$country->country_name}}</option>
                         @endforeach

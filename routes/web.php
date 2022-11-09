@@ -38,8 +38,8 @@ Route::delete('/delete/{country}', [CountryController::class, 'destroy'])->name(
 Route::prefix('mines')->name('mine-')->group(function () {
     Route::get('/', [MineController::class, 'index'])->name('list');
     Route::get('/create', [MineController::class, 'create'])->name('create');
-    Route::post('/store', [MineController::class, 'store'])->name('store');
     Route::get('/create-for-country/{country}', [MineController::class, 'create'])->name('create-for-country');
+    Route::post('/store', [MineController::class, 'store'])->name('store');
     Route::get('/edit/{mine}', [MineController::class, 'edit'])->name('edit');
     Route::put('/update/{mine}', [MineController::class, 'update'])->name('update');
     Route::delete('/delete/{mine}', [MineController::class, 'destroy'])->name('delete');
@@ -51,6 +51,7 @@ Route::get('show-latitude', [MineController::class, 'showLatitude'])->name('show
 Route::prefix('ships')->name('ship-')->group(function () {
     Route::get('/', [ShipController::class, 'index'])->name('list');
     Route::get('/create', [ShipController::class, 'create'])->name('create');
+    Route::get('/create-for-country/{country}', [ShipController::class, 'create'])->name('create-for-country');
     Route::post('/store', [ShipController::class, 'store'])->name('store');
     Route::get('/edit/{ship}', [ShipController::class, 'edit'])->name('edit');
     Route::put('/update/{ship}', [ShipController::class, 'update'])->name('update');

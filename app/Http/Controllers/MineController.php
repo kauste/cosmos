@@ -185,8 +185,8 @@ class MineController extends Controller
                ->pluck('longitude')
                ->all();
                 
-        $availibleLongitudes =  array_diff(range(0,359), $existingLongitudes);
-        dump($existingLongitudes);
+        $availibleLongitudes =  array_values(array_diff(range(0,359), $existingLongitudes));
+        // dump($existingLongitudes);
         return response()->json([
                             'longitudes' => $availibleLongitudes
         ]);
@@ -200,8 +200,8 @@ class MineController extends Controller
                ->pluck('latitude')
                ->all();
                 
-        $availibleLatitudes =  array_diff(range(0,359), $existingLatitudes);
-        dump($availibleLatitudes);
+        $availibleLatitudes =  array_values(array_diff(range(0,359), $existingLatitudes));
+        // dump($availibleLatitudes);
         return response()->json([
                             'latitudes' => $availibleLatitudes
         ]);

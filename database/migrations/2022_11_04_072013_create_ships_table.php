@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('ships', function (Blueprint $table) {
             $table->id();
             $table->string('ship_name', 50)->unique();
-            $table->foreignIdFor(Country::class)->onDelete('cascade');
+            $table->foreignIdFor(Country::class)->nullable();
             $table->string('ship_pic', 200)->default('gelda.jpg');
             $table->timestamps();
         });
