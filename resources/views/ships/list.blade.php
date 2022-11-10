@@ -8,7 +8,7 @@
         <div class="col-lg-7 col-12 m-2 d-flex justify-content-end">
         <a href="{{route('ship-create')}}" class="btn btn-outline-secondary btn-lg add-button">Add new ship</a>
         </div>
-        <div class="col-xl-10 col-12 p-xl-5 pb-xl-0 pt-xl-2 p-0 bg-main">
+        <div class="col-xl-8 col-12 p-xl-5 pb-xl-0 pt-xl-2 p-0 bg-main">
             @if(count($ships) !== 0)
             <table class="table table-hover">
                 <thead class="border-bright-bottom">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mine;
 use App\Models\Country;
+use App\Models\Ship;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -11,11 +12,6 @@ use DB;
 
 class MineController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
 
@@ -25,11 +21,6 @@ class MineController extends Controller
                                    'mines' => $mines]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($country = null)
     {
         $cntr = Country::where('id',$country)->first();
@@ -39,18 +30,14 @@ class MineController extends Controller
                             ->havingRaw('COUNT(country_name) < amount_of_mines')
                             ->orderBy('country_name')
                             ->get();
+        $ships = Ship::where('country_id', '=', null)->get();
 
         return view('mines.create', ['title '=> 'Create mine',
                                      'countries'=> $countries,
-                                     'cntr'=> $cntr]);
+                                     'cntr'=> $cntr,
+                                    'ships'=> $ships]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreMineRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
    
@@ -58,12 +45,10 @@ class MineController extends Controller
         // $minesNowInCountry = Mine::where('country_id', '=', $request['country'])->count();
 
         $data = $request->all();
-        dump($data);
-
         $validator = Validator::make($data,
         [
             'mine-name'=> ['required', 'min:3', 'max:50', 'unique:mines,mine_name'],
-            'country' => ['required', 'integer', 'max:'.Country::count()],
+            'country' => ['nullable', 'integer', Rule::in(Country::select('id')->get()->pluck('id')->all())],
             'longitude' => ['required', 
                             'integer', 
                             'min:0', 
@@ -74,6 +59,8 @@ class MineController extends Controller
                             ],
             'latitude' => ['required', 'integer', 'min:0', 'max:359' ],
             'exploitation' => ['required', 'integer', 'min:1000', 'max:90000'],
+            'add-ship' => ['array'],
+            'add-ship.*' => ['numeric'],
         ],
         [
             'longitude.unique'=> 'This coordinations is already in use. Choose other coordinations.'
@@ -89,26 +76,15 @@ class MineController extends Controller
         $mine->country_id = $request['country'];
         $mine->exploitation = $request['exploitation'];
         $mine->save();
+
+        if($request['add-ship']){
+            $mine->ships()->attach($request['add-ship']);
+            Ship::whereIn('id', $request['add-ship'])->update(['country_id'=> $request['country']]);
+        }
+
         return redirect()->route('mine-list')->with('message', $request['mine-name'].' mine is added.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Mine  $mine
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mine $mine)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Mine  $mine
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Mine $mine)
     {
         $countries = Mine::join('countries', 'mines.country_id', '=', 'countries.id')
@@ -117,19 +93,14 @@ class MineController extends Controller
                             ->havingRaw('COUNT(country_name) < amount_of_mines')
                             ->orderBy('country_name')
                             ->get();
+        $ships = Ship::where('country_id', '=', null)->get();
 
         return view('mines.edit', ['title '=> 'Edit mine',
                                       'countries'=> $countries,
-                                      'mine'=> $mine]);
+                                      'mine'=> $mine,
+                                      'ships'=> $ships]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateMineRequest  $request
-     * @param  \App\Models\Mine  $mine
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Mine $mine)
     {
         $data = $request->all();
@@ -137,7 +108,7 @@ class MineController extends Controller
         $validator = Validator::make($data,
         [
             'mine-name'=> ['required', 'min:3', 'max:50', 'unique:mines,mine_name,'.$mine->id.'id'],
-            'country' => ['required', 'integer', 'max:'.Country::count()],
+            'country' => ['nullable', 'integer', 'max:'.Country::count()],
             'longitude' => ['required', 
                             'integer', 
                             'min:0', 
@@ -163,17 +134,23 @@ class MineController extends Controller
         $mine->country_id = $request['country'];
         $mine->exploitation = $request['exploitation'];
         $mine->save();
+
+        $mine->ships()->detach();
+        if($request['add-ship']){
+            $mine->ships()->attach($request['add-ship']);
+            Ship::whereIn('id', $request['add-ship'])->update(['country_id'=> $request['country']]);
+        }
+
+
+
         return redirect()->route('mine-list')->with('message', $request['mine-name'].' mine is edited.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Mine  $mine
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Mine $mine)
     {
+        if(Mine::where('id', $mine->id)->first() == null || !(int) $mine->id){
+            return redirect()->route('mine-list')->with('message', 'Something went wrong. Mine is not identified.');
+        }
         $mine->delete();
         return redirect()->back()->with('message', $mine->mine_name.' is deteted');
     }
@@ -186,7 +163,7 @@ class MineController extends Controller
                ->all();
                 
         $availibleLongitudes =  array_values(array_diff(range(0,359), $existingLongitudes));
-        // dump($existingLongitudes);
+
         return response()->json([
                             'longitudes' => $availibleLongitudes
         ]);
@@ -195,16 +172,36 @@ class MineController extends Controller
 
     public function showLatitude(Request $request){
         $existingLatitudes = Mine::where('longitude', '=', $request->longitude)
-                ->select('latitude')
-               ->get()
-               ->pluck('latitude')
-               ->all();
+                            ->select('latitude')
+                            ->get()
+                            ->pluck('latitude')
+                            ->all();
                 
         $availibleLatitudes =  array_values(array_diff(range(0,359), $existingLatitudes));
-        // dump($availibleLatitudes);
+
         return response()->json([
                             'latitudes' => $availibleLatitudes
         ]);
         
+    }
+    public function showCountryAndShips(Request $request){
+        $countryName = Country::where('id', $request->countryId)
+                    ->select('country_name')
+                    ->first()
+                    ->country_name;
+        $ships = Ship::where('country_id', $request->countryId)
+                    ->select('id', 'ship_name')
+                    ->get();
+        
+                    
+         if($request->mineId){
+            $minesShips = Mine::where('id', $request->mineId)->first()->ships()->pluck('id')->all();
+        }
+
+        return response()->json([
+                            'countryName' => $countryName,
+                            'ships'=>$ships,
+                            'minesShips'=> $minesShips ?? []
+                             ]);            
     }
 }

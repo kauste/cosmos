@@ -146,7 +146,10 @@ class CountryController extends Controller
      */
     public function destroy(Country $country)
     {
-        
+        if(Country::where('id', $country->id)->first() == null || !(int) $country->id){
+            return redirect()->route('country-list')->with('message', 'Something went wrong. Country is not identified.');
+        }
+
         $minesIds = Mine::where('country_id', '=', $country->id)->select('id')->pluck('id')->all();
  
         collect($minesIds)->map(function($mineId){

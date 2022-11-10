@@ -9,8 +9,10 @@
 
     <title>{{$title ?? 'cosmos'}}</title>
     <script>
-        const showLongitudeUrl = "{{route('show-longitude')}}"
-        const showLatitudeUrl = "{{route('show-latitude')}}"
+        const showLongitudeUrl = "{{route('show-longitude')}}";
+        const showLatitudeUrl = "{{route('show-latitude')}}";
+        const countryAndShipsUrl = "{{route('show-country-and-ships')}}";
+        const countryAndMinesUrl = "{{route('show-country-and-mines')}}"
 
     </script>
 
@@ -95,7 +97,7 @@
                                     List of ships
                                 </a>
                                 <a class="dropdown-item" href="{{ route('ship-create')}}">
-                                    Create new shio
+                                    Create new ship
                                 </a>
                             </div>
                         </li>
