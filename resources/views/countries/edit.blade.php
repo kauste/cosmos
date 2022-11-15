@@ -25,6 +25,20 @@
                         <input type="number" min="3" max="50" class="form-control" id="max-amount" name="max-amount" value="{{$country->amount_of_mines}}">
                     </div>
                 </div>
+                                @if($alliances)
+                <div class="mb-3 d-flex gap-3 justify-content-start">
+                    <div class="col-3">
+                    <label for="alliance" class="mr-1 col-form-label">Alliance: </label>
+                    <small class="no-variables d-block">Not necessary.</small>
+                    </div>
+                    <select class="form-control w-50 h-50" name="alliance" id="alliance">
+                        <option value="" @if($country->alliance_id == null) selected @endif>No alliance</option>
+                        @foreach ($alliances as $alliance)
+                        <option value="{{$alliance->id}}" @if($country->alliance_id == $alliance->id) selected @endif>{{$alliance->alliance_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @endif
                 <div class="col-12 mb-3 d-flex gap-3  justify-content-start">
                     <div for="add-mine" class="col-form-label col-3">Add or remove mines
                         <i>(longitude x latitude)</i>:
@@ -89,8 +103,9 @@
 
                 @csrf
                 @method('put')
-                <div class="col-12 mt-3 d-flex justify-content-center">
+                <div class="col-12 mt-3 d-flex gap-3 justify-content-center">
                     <button type="submit" class="btn btn-outline-secondary update-button mb-3">Update</button>
+                    <a href="{{route('country-list')}}" class="btn btn-outline-secondary add-button mb-3">Cancel</a>
                 </div>
             </form>
             <div class="text-danger">&lowast; - essential fields</div>

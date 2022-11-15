@@ -15,15 +15,24 @@ class MineController extends Controller
     public function index()
     {
 
-        $mines = Mine::orderBy('mine_name')->get();
+        $mines = Mine::orderBy('mine_name')->get()
+                ->map(function($mine){
 
+                    $mine->allianceCountries = $mine->country?->alliance?->countries
+                        ->map(function($allianceCountry){
+                            $allianceCountry->allianceShips = $allianceCountry->ships;
+                            return $allianceCountry;
+                        });
+                        return $mine;
+                });
         return view('mines.list', ['title' => 'List of mines',
                                    'mines' => $mines]);
     }
 
-    public function create($country = null)
+    public function create(Request $request, $country = null)
     {
         $cntr = Country::where('id',$country)->first();
+        $old = $request->old() != [] ? $request->old() : null;
         $countries = Mine::join('countries', 'mines.country_id', '=', 'countries.id')
                             ->select('countries.country_name', 'countries.id as id','countries.amount_of_mines', DB::raw('COUNT(country_name) as count'))
                             ->groupBy('countries.country_name', 'countries.amount_of_mines', 'cosmos.countries.id')
@@ -35,7 +44,8 @@ class MineController extends Controller
         return view('mines.create', ['title '=> 'Create mine',
                                      'countries'=> $countries,
                                      'cntr'=> $cntr,
-                                    'ships'=> $ships]);
+                                    'ships'=> $ships,
+                                    'old'=> $old]);
     }
 
     public function store(Request $request)
@@ -67,7 +77,7 @@ class MineController extends Controller
         ]);
         if($validator->fails()){
             $request->flash();
-            return redirect()->back()->withErrors($validator);
+            return back()->withErrors($validator)->withInput();
         }
         $mine = new Mine;
         $mine->mine_name = $request['mine-name'];

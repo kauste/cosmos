@@ -19,11 +19,13 @@ class CountryFactory extends Factory
     protected $model = Country::class;
 
     public function definition()
-    {
+    {   
+        $alliance_id = [null, ...range(1,3)];
 
         return [
             'country_name' => fake()->unique()->state,
             'amount_of_mines' => rand(1, 50),
+            'alliance_id' => $alliance_id[rand(0,3)],
         ];
     }
 }

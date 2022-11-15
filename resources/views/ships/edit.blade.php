@@ -51,8 +51,9 @@
                     @endif
                 </div>
                 @csrf
-                <div class="col-12 d-flex justify-content-center">
+                <div class="col-12 d-flex gap-3 justify-content-center">
                     <button type="submit" class="btn btn-outline-secondary update-button">Add ship</button>
+                    <a href="{{route('ship-list')}}" class="btn btn-outline-secondary add-button">Cancel</a>
                 </div>
             </form>
         </div>

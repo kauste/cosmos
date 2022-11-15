@@ -15,15 +15,24 @@ class ShipController extends Controller
 
     public function index()
     {
-        $ships = Ship::orderBy('ship_name')->get();
+        $ships = Ship::orderBy('ship_name')->get()
+                ->map(function($ship){
+                    $ship->allianceCountries = $ship->country?->alliance?->countries
+                    ->map(function($allianceCountry){
+                        $allianceCountry->allianceShips = $allianceCountry->ships;
+                        return $allianceCountry;
+                    });
+                    return $ship;
+                });
 
         return view('ships.list', ['title' => 'List of ships',
                                    'ships' => $ships]);
     }
 
-    public function create($country = null)
+    public function create(Request $request, $country = null)
     {
         $cntr = Country::where('id',$country)->first();
+        $old = $request->old() != [] ? $request->old() : null;
         $countries = Country::select('countries.country_name', 'countries.id as id')
                             ->orderBy('country_name')
                             ->get();
@@ -33,7 +42,8 @@ class ShipController extends Controller
         return view('ships.create', ['title '=> 'Create mine',
                                      'countries'=> $countries,
                                      'cntr'=> $cntr,
-                                    'mines'=> $mines]);
+                                    'mines'=> $mines,
+                                    'old' => $old]);
     }
     
     public function store(Request $request)
@@ -49,7 +59,7 @@ class ShipController extends Controller
         ]);
         if($validator->fails()){
             $request->flash();
-            return redirect()->back()->withErrors($validator);
+            return back()->withErrors($validator)->withInput();
         }
         $ship = new Ship;
         $ship->ship_name = $request['ship-name'];
@@ -61,7 +71,6 @@ class ShipController extends Controller
             $extention = $originalPic->getClientOriginalExtension();
             $name = pathinfo($originalPic->getClientOriginalName(), PATHINFO_FILENAME);
             $file = $name. '-' . rand(100000, 999999). '.' . $extention;
-            dump(public_path().'/img/ship_img/'.$file);
             $originalPic->move(public_path().'/img/ship_img', $file);
             $ship->ship_pic = $file;
         }

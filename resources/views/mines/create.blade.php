@@ -16,7 +16,7 @@
                 <div class="col-12 mb-4 d-flex gap-1 justify-content-start">
                     <label for="mine-name" class="col-4 mr-1 col-form-label">Mine name<span class="text-danger">&lowast;</span> :</label>
                     <div class="col-7">
-                        <input type="text" class="form-control" id="mine-name" name="mine-name">
+                        <input type="text" class="form-control" id="mine-name" name="mine-name" @if($old) value="{{$old['mine-name']}}" @endif>
                     </div>
                 </div>
                 @if($cntr)
@@ -25,9 +25,9 @@
                 <div class="col-12 mb-4 d-flex gap-1 justify-content-start">
                     <label for="country" class="col-4 mr-1 col-form-label">Country: </label>
                     <select class="col-7" name="country" id="country">
-                        <option value="">No country</option>
+                        <option value="" @if($old && $old['country'] == "") selected @endif>No country</option>
                         @foreach ($countries as $country)
-                        <option value="{{$country->id}}">{{$country->country_name}}</option>
+                        <option value="{{$country->id}}"  @if($old && $old['country'] == $country->id) selected @endif>{{$country->country_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -37,7 +37,7 @@
                         <label class="col-10" for="longitude">Longitude<span class="text-danger">&lowast;</span> :</label>
                     </div>
                     <div class="col-4">
-                        <input type="number" min="0" max="359" class="form-control" id="longitude" name="longitude">
+                        <input type="number" min="0" max="359" class="form-control" id="longitude" name="longitude" @if($old) value="{{$old['longitude']}}" @endif>
                     </div>
                     <div class=" col-5 d-flex justify-content-center">
                         <button class="btn btn-outline-secondary add-button longitude--button d-none " type="button">Show availible</button>
@@ -51,7 +51,7 @@
                         <label class="col-10" for="latitude">Latitude<span class="text-danger">&lowast;</span> :</label>
                     </div>
                     <div class="col-4">
-                        <input type="number" min="0" max="359" class="form-control" id="latitude" name="latitude">
+                        <input type="number" min="0" max="359" class="form-control" id="latitude" name="latitude" @if($old) value="{{$old['latitude']}}" @endif>
                     </div>
                     <div class="col-5 d-flex justify-content-center">
                         <button class="btn btn-outline-secondary add-button latitude--button d-none" type="button">Show availible</button>
@@ -63,7 +63,7 @@
                 <div class="col-12 mb-4 d-flex  justify-content-start">
                     <label for="exploitation" class="col-4 col-form-label">Exploitation<span class="text-danger">&lowast;</span> :</label>
                     <div class="col-4">
-                        <input type="number" min="1000" max="90000" class="form-control" id="exploitation" name="exploitation">
+                        <input type="number" min="1000" max="90000" class="form-control" id="exploitation" name="exploitation" @if($old) value="{{$old['exploitation']}}" @endif>
                     </div>
                 </div>
                 <div class="col-12 mb-3 d-none gap-3  justify-content-start countries--ships">
@@ -91,8 +91,9 @@
                     @endif
                 </div>
                 @csrf
-                <div class="col-12 d-flex justify-content-center">
+                <div class="col-12 d-flex gap-3 justify-content-center">
                     <button type="submit" class="btn btn-outline-secondary update-button">Add mine</button>
+                    <a href="{{route('mine-list')}}" class="btn btn-outline-secondary add-button">Cancel</a>
                 </div>
             </form>
         </div>

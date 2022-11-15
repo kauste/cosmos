@@ -21,15 +21,23 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Country::factory()
-                ->count(15)
-                ->create()
-                ->each(function ($country){
-                     Mine::factory()->hasAttached(
-                        Ship::factory()->count(3)->create(['country_id'=>$country->id])
-                     )
+        ->count(15)
+        ->create()
+        ->each(function ($country){
+            Mine::factory()->hasAttached(
+                Ship::factory()->count(3)->create(['country_id'=>$country->id])
+                )
                 ->count(3)->create(['country_id'=>$country->id]);
-                 });
-        
+            });
+            
+            
+            $alliancesNames = ['United countries alliance', 'Common wealth alliance', 'Internecine assistance alliance'];
+            foreach($alliancesNames as $name){
+                DB::table('alliances')->insert([
+                    'alliance_name' => $name,
+                ]);
+            }
+
         // Ship::factory()->count(60)->create();
         // $faker = Factory::create();
 

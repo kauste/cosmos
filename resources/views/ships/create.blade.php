@@ -16,7 +16,7 @@
                 <div class="col-12 mb-4 d-flex gap-1 justify-content-start">
                     <label for="ship-name" class="col-4 mr-1 col-form-label">Ship name<span class="text-danger">&lowast;</span> :</label>
                     <div class="col-7">
-                        <input type="text" class="form-control" id="ship-name" name="ship-name">
+                        <input type="text" class="form-control" id="ship-name" name="ship-name" @if($old) value="{{$old['ship-name']}}" @endif>
                     </div>
                 </div>
                 <div class="col-12 mb-4 d-flex gap-1 justify-content-start">
@@ -29,9 +29,9 @@
                 <div class="col-12 mb-4 d-flex gap-1 justify-content-start">
                     <label for="country" class="col-4 mr-1 col-form-label">Country: </label>
                     <select class="col-7" name="country" id="country">
-                        <option value="">No country</option>
+                        <option value="" @if($old && $old['country'] == "") selected @endif>No country</option>
                         @foreach ($countries as $country)
-                        <option value="{{$country->id}}">{{$country->country_name}}</option>
+                        <option value="{{$country->id}}" @if($old && $old['country'] == $country->id) selected @endif>{{$country->country_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -64,8 +64,9 @@
                     @endif
                 </div>
                 @csrf
-                <div class="col-12 d-flex justify-content-center">
+                <div class="col-12 d-flex gap-3 justify-content-center">
                     <button type="submit" class="btn btn-outline-secondary update-button">Add ship</button>
+                    <a href="{{route('ship-list')}}" class="btn btn-outline-secondary add-button">Cancel</a>
                 </div>
             </form>
         </div>

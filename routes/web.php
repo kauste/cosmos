@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\MineController;
 use App\Http\Controllers\ShipController;
+use App\Http\Controllers\AllianceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,15 @@ Route::prefix('ships')->name('ship-')->group(function () {
     Route::delete('/delete/{ship}', [ShipController::class, 'destroy'])->name('delete');
 });
 Route::get('show-country-and-mines', [ShipController::class, 'showCountryAndMines'])->name('show-country-and-mines');
+
+
+//alliances
+Route::prefix('alliances')->name('alliance-')->group(function () {
+    Route::get('/', [AllianceController::class, 'index'])->name('list');
+    Route::get('/create', [AllianceController::class, 'create'])->name('create');
+    Route::get('/create-for-country/{country}', [AllianceController::class, 'create'])->name('create-for-country');
+    Route::post('/store', [AllianceController::class, 'store'])->name('store');
+    Route::get('/edit/{alliance}', [AllianceController::class, 'edit'])->name('edit');
+    Route::put('/update/{alliance}', [AllianceController::class, 'update'])->name('update');
+    Route::delete('/delete/{alliance}', [AllianceController::class, 'destroy'])->name('delete');
+});
