@@ -64,7 +64,7 @@
                             @endforeach
                         </td>
                         @else
-                        <td>No alliance</td>
+                        <td class="no-variables"><small>No alliance.</small></td>
                         <td><small class="no-variables">No alliance ships.</small></td>
                         <td><small class="no-variables">No alliance mines.</small></td>
                         @endif
@@ -81,7 +81,7 @@
                 </tbody>
             </table>
             @else
-            <i> No countries are involved in the project. </i>
+            <div class="p-3"><i> No countries are involved in the project. </i></div>
             @endif
         </div>
     </div>

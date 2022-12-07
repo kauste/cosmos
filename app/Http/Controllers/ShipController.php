@@ -12,6 +12,9 @@ use DB;
 
 class ShipController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -98,11 +101,11 @@ class ShipController extends Controller
                                     'ship' => $ship]);
     }
 
-    public function update(UpdateShipRequest $request, Ship $ship)
+    public function update(Request $request, Ship $ship)
     {
         $validator = Validator::make($request->all(),
         [
-            'ship-name'=> ['required', 'min:3', 'max:50', 'unique:ships,ship_name'],
+            'ship-name'=> ['required', 'min:3', 'max:50', Rule::unique('ships', 'ship_name')->ignore($ship)],
             'country' => ['nullable', 'integer', Rule::in(Country::select('id')->get()->pluck('id')->all())],
             'ship_pic' => ['mimes:jpg,gif,svg,jpeg,png', 'max:2048'],
             'add-mine' => ['array'],

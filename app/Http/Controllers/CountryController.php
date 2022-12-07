@@ -9,9 +9,13 @@ use App\Models\Country;
 use App\Models\Mine;
 use App\Models\Ship;
 use App\Models\Alliance;
+use Auth;
 
 class CountryController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -157,12 +161,13 @@ class CountryController extends Controller
       
         if($request['add-mine'] && $request['add-ship']){
             collect($request['add-mine'])->map(function($mineId) use ($request){
+                Mine::find($mineId)->ships()->detach();
                 Mine::find($mineId)->ships()->attach($request['add-ship']);
             });
-            $msg = 'Country is added. By default all selected ships can go to all selected mines. In case you would like to configure it, go to preferable ships or mines and edit them.';
+            $msg = 'Country is edited. By default all selected ships can go to all selected mines. In case you would like to configure it, go to preferable ships or mines and edit them.';
         }
         else {
-            $msg = 'Country is added';
+            $msg = 'Country is edited';
         }
 
         return redirect()->route('country-list')->with('message', $msg);

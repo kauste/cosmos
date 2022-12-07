@@ -7,9 +7,13 @@ use App\Models\Country;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AllianceController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -68,7 +72,7 @@ class AllianceController extends Controller
     public function update(Request $request, Alliance $alliance)
     {
         $validator = Validator::make($request->all(), [
-            'alliance-name' => ['required', 'string', 'min:3', 'max:100', 'unique:alliances,alliance_name']
+            'alliance-name' => ['required', 'string', 'min:3', 'max:100', Rule::unique('alliances','alliance_name')->ignore($alliance)],
         ]);
 
         if($validator->fails()){
@@ -79,11 +83,15 @@ class AllianceController extends Controller
 
         $alliance->alliance_name = $request['alliance-name'];
         $alliance->save();
-        return redirect()->route('alliance-list')->with('message', 'Alliance is added successfully. You can add countries to alliance now.');
+        return redirect()->route('alliance-list')->with('message', 'Alliance is edited successfully.');
     }
 
     public function destroy(Alliance $alliance)
     {
+        if(Alliance::where('id', $alliance->id)->first() == null ||!(int) $alliance->id){
+            return redirect()->route('country-list')->with('message', 'Something went wrong. Alliance is not identified.');
+        };
+
         Country::where('alliance_id', $alliance->id)->update(['alliance_id'=> null]);
         $alliance->delete();
         return redirect()->back()->with('message', 'Alliance is deleted.');

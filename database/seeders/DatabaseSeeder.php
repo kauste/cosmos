@@ -7,17 +7,13 @@ use App\Models\Ship;
 use App\Models\Mine;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
-// use Database\Seeders\MineSeeder;
-// use Database\Seeders\ShipSeeder;
+use Illuminate\Support\Facades\Hash;
+
 
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+
     public function run()
     {
         Country::factory()
@@ -37,7 +33,11 @@ class DatabaseSeeder extends Seeder
                     'alliance_name' => $name,
                 ]);
             }
-
+            DB::table('users')->insert([
+                'name' => 'admin',
+                'email'=> 'admin@example.com',
+                'password'=> Hash::make('7ae1238uu'),
+            ]);
         // Ship::factory()->count(60)->create();
         // $faker = Factory::create();
 

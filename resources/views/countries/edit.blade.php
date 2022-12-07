@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row p-2 justify-content-center">
         <div class="d-flex justify-content-center m-3">
-            <h2 class="border-bright p-3 pt-1">Edit country</i></h2>
+            <h2 class="border-bright p-3 pt-1">Edit country <b>{{$country->country_name}}</b></h2>
         </div>
         <div class="col-12 d-flex justify-content-center gap-5 mb-2">
             @if(!$isMaxMines)
@@ -100,7 +100,6 @@
                     <div for="add-mine" class="col-form-label no-variables">There is no availible mines to add. You will have to dig a new one. </div>
                     @endif
                 </div>
-
                 @csrf
                 @method('put')
                 <div class="col-12 mt-3 d-flex gap-3 justify-content-center">

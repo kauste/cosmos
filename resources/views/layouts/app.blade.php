@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<link rel="shortcut icon" href="./../public/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./../public/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="./../public/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./../public/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./../public/favicon/favicon-16x16.png">
@@ -46,7 +46,7 @@
             <div class="container">
                 <a class="navbar-brand logo" href="{{ url('/') }}">
                     <img src="{{asset('/favicon.ico')}}">
-                    Cosmos 
+                    Helium 3
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -61,7 +61,17 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('index') }}">Task</a>
+                        </li>
                         @guest
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li> 
+                        @endif
+
+                        @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Countries
@@ -101,7 +111,7 @@
                                 </a>
                             </div>
                         </li>
-                                                <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 Alliances
                             </a>
@@ -114,19 +124,6 @@
                                 </a>
                             </div>
                         </li>
-                        @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
-
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
-
-                        @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}

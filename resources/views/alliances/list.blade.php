@@ -66,7 +66,7 @@
                 </tbody>
             </table>
             @else
-            <i> No alliances are involved in the project. </i>
+            <div class="p-3"><i>No alliances are involved in the project yet.</i></div>
             @endif
         </div>
     </div>

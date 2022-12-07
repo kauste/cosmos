@@ -1,41 +1,32 @@
 import "bootstrap";
 import axios from "axios";
-
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 const countryInputDOM = document.querySelector(".country--name");
-
+if(document.querySelector('button')){
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            button.setAttribute('disabled', '');
+            button.closest('form').submit();
+        });
+    });
+}
 if (countryInputDOM) {
     countryInputDOM.addEventListener("input", (e) => {
-        axios
-            .get(
-                "https://restcountries.com/v3.1/name/" +
-                    e.target.value.toLowerCase() +
-                    "?fields=name"
-            )
+        axios.get("https://restcountries.com/v3.1/name/" + e.target.value.toLowerCase() + "?fields=name")
             .then((res) => {
-                const completedDOM = document.querySelector(
-                    "#completed-countries"
-                );
+                const completedDOM = document.querySelector("#completed-countries");
                 let countries = res.data;
                 let completeCountries = [];
                 let completeHTML = "";
 
-                countries.sort((a, b) =>
-                    a.name.common.localeCompare(b.name.common)
-                );
+                countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
                 countries = countries.filter(
                     (country) =>
-                        country.name.common
-                            .slice(0, e.target.value.length)
-                            .toLowerCase() === e.target.value.toLowerCase()
-                );
+                        country.name.common.slice(0, e.target.value.length).toLowerCase() === e.target.value.toLowerCase());
 
-                for (
-                    let i = 0;
-                    countries.length < 5 ? i < countries.length : i < 5;
-                    i++
-                ) {
+                for (let i = 0; countries.length < 5 ? i < countries.length : i < 5; i++) {
                     completeCountries.push(countries[i].name.common);
                 }
                 // console.log(completeCountries.length)

@@ -5,6 +5,7 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\MineController;
 use App\Http\Controllers\ShipController;
 use App\Http\Controllers\AllianceController;
+use App\Http\Controllers\FirstPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,11 +21,13 @@ use App\Http\Controllers\AllianceController;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', [CountryController::class, 'index'])->name('list');
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Auth::routes(['register'=>false]);
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [FirstPageController::class, 'index'])->name('index');
+Route::post('/emile', [FirstPageController::class, 'emile'])->name('emile');
 //countries
 Route::prefix('countries')->name('country-')->group(function () {
 Route::get('/', [CountryController::class, 'index'])->name('list');

@@ -92,3 +92,32 @@ body{
 .scroll-table {
     overflow-x:auto;
 }
+.violet-text{
+    color:rgba(62, 0, 124, 0.886);
+}
+
+input.violet-focus:focus{
+    box-shadow: 0 0 0 0.25rem rgba(62, 0, 124, 0.25);
+    border-color: rgba(62, 0, 124, 0.25);
+}
+.first-list{
+    list-style-type: none;
+}
+.second-list{
+    list-style:none;
+}
+.second-list li{
+    position:relative;
+}
+.second-list li::before{
+    content: '';
+    display:inline-block;
+    position:absolute;
+    top:2px; 
+    left:-30px;
+    height:24px;
+    width:24px;
+    background-image: url("./../../public/img/svg/space-ship.svg");
+    background-repeat: no-repeat;
+    transform: rotate(45deg);
+}

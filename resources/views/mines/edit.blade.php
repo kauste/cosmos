@@ -82,12 +82,10 @@
                     <li style="list-style:none" for="add-mine" class="col-form-label no-variables">There is no availible ship in stock. </li>
                     @endif
                 </div>
-
-
                 @method('put')
                 @csrf
                 <div class="col-12 d-flex gap-3 justify-content-center">
-                    <button type="submit" class="btn btn-outline-secondary update-button">Edit mine</button>
+                    <button type="submit" class="btn btn-outline-secondary update-button">Update</button>
                     <a href="{{route('mine-list')}}" class="btn btn-outline-secondary add-button">Cancel</a>
                 </div>
             </form>

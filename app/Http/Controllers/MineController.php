@@ -12,6 +12,10 @@ use DB;
 
 class MineController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
 
@@ -117,7 +121,7 @@ class MineController extends Controller
 
         $validator = Validator::make($data,
         [
-            'mine-name'=> ['required', 'min:3', 'max:50', 'unique:mines,mine_name,'.$mine->id.'id'],
+            'mine-name'=> ['required', 'min:3', 'max:50', Rule::unique('mines', 'mine_name')->ignore($mine)],
             'country' => ['nullable', 'integer', 'max:'.Country::count()],
             'longitude' => ['required', 
                             'integer', 
