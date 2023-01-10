@@ -10,7 +10,7 @@ class FirstPageController extends Controller
         return view('fistPage');
     }
     public function emile(Request $request){
-        dump($request->email);
+        // dump($request->email);
 
         return redirect()->back()->with('message', 'Thank you, I will send you login data as soon as possible.');
     }
