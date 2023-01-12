@@ -21,6 +21,7 @@ This is laravel project made for educational purposes only. The main purpose was
 - Migrations
 - Validation rules
 - Svg
+- File upload and update
 - Javascript methods
 - Responsive design
 

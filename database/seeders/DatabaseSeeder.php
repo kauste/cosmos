@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             DB::table('users')->insert([
                 'name' => 'admin',
                 'email'=> 'admin@example.com',
-                'password'=> Hash::make('7ae1238uu'),
+                'password'=> Hash::make('123'),
             ]);
         // Ship::factory()->count(60)->create();
         // $faker = Factory::create();
