@@ -17,7 +17,6 @@ This is laravel project made for educational purposes only. The main purpose was
 ## Deepen my knowledge
 
 - CRUD
-- Collection methods
 - Query Builder
 - Migrations
 - Validation rules
