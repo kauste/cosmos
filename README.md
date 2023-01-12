@@ -23,6 +23,7 @@ This is laravel project made for educational purposes only. The main purpose was
 - Validation rules
 - Svg
 - Javascript methods
+- Responsive design
 
 ## Authors
 
