@@ -7,27 +7,26 @@
         </div>
         <div class="col-xxl-5 col-lg-7 col-md-9 p-md-5 p-2 pb-0 pl-3 pt-2 bg-main">
             <form method="post" action="{{route('country-store')}}" class="m-2 row align-items-center">
-                <div class="col-12 mb-3 d-flex gap-3 justify-content-start">
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3 justify-content-start">
                     <label for="country-name" class="col-form-label">Country <span class="text-danger">&lowast;</span> :</label>
-                    <div>
+                    <div class="country-name-input">
                         <input type="text" class="form-control country--name" id="country-name" name="country-name" list="completed-countries" autocomplete="off" @if($old) value="{{$old['country-name']}}" @endif>
                         <datalist id="completed-countries">
                         </datalist>
                     </div>
                 </div>
-                <div class="col-12 mb-3 d-flex gap-3  justify-content-start">
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3  justify-content-start">
                     <label for="max-amount" class="col-form-label">Maximum amount of mines <span class="text-danger">&lowast;</span> :</label>
-                    <div>
-                        <input type="number" min="3" max="50" class="form-control" id="max-amount" name="max-amount" @if($old) value="{{$old['max-amount']}}" @endif>
+                    <div class="">
+                        <input type="number" min="3" max="50" class="form-control two-digit-number-input" id="max-amount" name="max-amount" @if($old) value="{{$old['max-amount']}}" @endif>
                     </div>
                 </div>
                 @if($alliances)
-                <div class="mb-3 d-flex gap-3 justify-content-start">
-                    <div class="col-3">
+                <div class="mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3 justify-content-start">
+                    <div class="col-sm-3">
                     <label for="alliance" class="mr-1 col-form-label">Alliance: </label>
-                    <small class="no-variables d-block">Not necessary.</small>
                     </div>
-                    <select class="form-control w-50 h-50" name="alliance" id="alliance">
+                    <select class="form-control alliance-select h-50" name="alliance" id="alliance">
                         <option value="" @if($old && $old['alliance']=="" ) selected @endif>No alliance</option>
                         @foreach ($alliances as $alliance)
                         <option value="{{$alliance->id}}" @if($old && $old['alliance']==$alliance->id) selected @endif>{{$alliance->alliance_name}}</option>
@@ -35,8 +34,8 @@
                     </select>
                 </div>
                 @endif
-                <div class="col-12 mb-3 d-flex gap-3  justify-content-start">
-                    <div for="add-mine" class="col-form-label col-3">Add mine from stock
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3  justify-content-start">
+                    <div for="add-mine" class="col-form-label col-12 col-sm-3">Add mine from stock
                         <i>(longitude x latitude)</i>:
                         <br>
                         <small class="no-variables">Not necessary. You will be able to dig a new one.</small>
@@ -54,8 +53,8 @@
                     <div for="add-mine" class="col-form-label no-variables">There is no availible mines to add. You will have to dig a new one. </div>
                     @endif
                 </div>
-                <div class="col-12 mb-3 d-flex gap-3  justify-content-start">
-                    <div for="add-mine" class="col-form-label col-3">Add ship from stock
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3  justify-content-start">
+                    <div for="add-mine" class="col-form-label col-12 col-sm-3">Add ship from stock
                         <br>
                         <small class="no-variables">Not necessary. You will be able to add your own ship.</small>
                     </div>

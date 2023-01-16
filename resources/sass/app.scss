@@ -6,7 +6,7 @@
 
 body{
     font-family: 'Electrolize', sans-serif;
-    background-image: url('./../../public/sky.jpg');
+    background-image: url('http://rugile.website/cosmos/sky.jpg');
     z-index: -999;
 }
 // body::before{
@@ -117,7 +117,16 @@ input.violet-focus:focus{
     left:-30px;
     height:24px;
     width:24px;
-    background-image: url("./../../public/img/svg/space-ship.svg");
+    background-image: url("http://rugile.website/cosmos/img/svg/space-ship.svg");
     background-repeat: no-repeat;
     transform: rotate(45deg);
+}
+.country-name-input{
+    max-width: 280px;
+}
+.two-digit-number-input{
+    max-width: 70px;
+}
+.alliance-select{
+    max-width: 280px;
 }

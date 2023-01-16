@@ -13,7 +13,6 @@
         const showLatitudeUrl = "{{route('show-latitude')}}";
         const countryAndShipsUrl = "{{route('show-country-and-ships')}}";
         const countryAndMinesUrl = "{{route('show-country-and-mines')}}"
-
     </script>
 
     <!-- Fonts -->
@@ -21,7 +20,9 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{asset('/build/assets/app.6eae3bd5.css?v=2')}}">
+    <script src="{{asset('/build/assets/app.0e0a59ac.js')}}" defer></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,12 +30,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="shortcut icon" href="./../public/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="./../public/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./../public/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./../public/favicon/favicon-16x16.png">
-    <link rel="manifest" href="./../public/favicon/site.webmanifest">
-    <link rel="mask-icon" href="./../public/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="{{asset('/favicon.ico" type="image/x-icon')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{asset('/favicon/apple-touch-icon.png')}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{asset('/favicon/favicon-32x32.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/favicon/favicon-16x16.png')}}">
+    <link rel="manifest" href="{{asset('/favicon/site.webmanifest')}}">
+    <link rel="mask-icon" href="{{asset('/favicon/safari-pinned-tab.svg" color="#5bbad5')}}">
     <meta name="msapplication-TileColor" content="#2b5797">
     <meta name="theme-color" content="#ffffff">
 

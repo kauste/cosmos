@@ -5,33 +5,32 @@
         <div class="d-flex justify-content-center m-3">
             <h2 class="border-bright p-3 pt-1">Edit country <b>{{$country->country_name}}</b></h2>
         </div>
-        <div class="col-12 d-flex justify-content-center gap-5 mb-2">
+        <div class="col-12 d-flex justify-content-center gap-2 gap-sm-5 mb-2">
             @if(!$isMaxMines)
             <a href="{{route('mine-create-for-country', $country)}}" class="btn btn-outline-secondary add-button">Create new mine</a>
             @endif
              <a href="{{route('ship-create-for-country', $country)}}" class="btn btn-outline-secondary add-button">Create new ship</a>
         </div>
-        <div class="col-xxl-5 col-xl-7 p-5 pb-0 pl-3 pt-2 bg-main">
+        <div class="col-xxl-5 col-xl-7 p-0 p-sm-5 pb-sm-0 pl-sm-3 pt-sm-2 bg-main">
             <form method="post" action="{{route('country-update', $country)}}" class="m-2 row align-items-center">
-                <div class="col-12 mb-3 d-flex gap-3 justify-content-start">
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3 justify-content-start">
                     <label for="country-name" class="col-form-label">Country: </label>
                     <div>
                         <input type="text" class="form-control country--name" id="country-name" name="country-name" value="{{$country->country_name}}" disabled>
                     </div>
                 </div>
-                <div class="col-12 mb-3 d-flex gap-3 justify-content-start">
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3 justify-content-start">
                     <label for="max-amount" class="col-form-label">Maximum amount of mines<span class="text-danger">&lowast;</span> :</label>
                     <div>
-                        <input type="number" min="3" max="50" class="form-control" id="max-amount" name="max-amount" value="{{$country->amount_of_mines}}">
+                        <input type="number" min="3" max="50" class="form-control two-digit-number-input" id="max-amount" name="max-amount" value="{{$country->amount_of_mines}}">
                     </div>
                 </div>
                                 @if($alliances)
-                <div class="mb-3 d-flex gap-3 justify-content-start">
-                    <div class="col-3">
+                <div class="mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3 justify-content-start">
+                    <div class="col-12 col-sm-3">
                     <label for="alliance" class="mr-1 col-form-label">Alliance: </label>
-                    <small class="no-variables d-block">Not necessary.</small>
                     </div>
-                    <select class="form-control w-50 h-50" name="alliance" id="alliance">
+                    <select class="form-control alliance-select h-50" name="alliance" id="alliance">
                         <option value="" @if($country->alliance_id == null) selected @endif>No alliance</option>
                         @foreach ($alliances as $alliance)
                         <option value="{{$alliance->id}}" @if($country->alliance_id == $alliance->id) selected @endif>{{$alliance->alliance_name}}</option>
@@ -39,8 +38,8 @@
                     </select>
                 </div>
                 @endif
-                <div class="col-12 mb-3 d-flex gap-3  justify-content-start">
-                    <div for="add-mine" class="col-form-label col-3">Add or remove mines
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3  justify-content-start">
+                    <div for="add-mine" class="col-form-label col-12 col-sm-3">Add or remove mines
                         <i>(longitude x latitude)</i>:
                         <br>
                         <small class="no-variables">Availible mines. Checked is already belongs to {{$country->country_name}}</small>
@@ -69,8 +68,8 @@
                     @endif
                 </div>
 
-                <div class="col-12 mb-3 d-flex gap-3  justify-content-start">
-                    <div for="add-mine" class="col-form-label col-3">Add or remove ships
+                <div class="col-12 mb-3 d-flex flex-column flex-sm-row gap-1 gap-sm-3  justify-content-start">
+                    <div for="add-mine" class="col-form-label col-12 col-sm-3">Add or remove ships
                         <br>
                         <small class="no-variables">Availible ships. Checked is already belongs to {{$country->country_name}}</small>
                     </div>

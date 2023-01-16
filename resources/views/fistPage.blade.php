@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row p-1">
-    <div class="align-items-center d-flex justify-content-end">
+<div class="container p-0 p-sm-2">
+    <div class="row p-0 p-xl-3">
+    <div class="align-items-center d-flex flex-column-reverse flex-md-row justify-content-end">
         @if(!auth()->user()?->id)
         <form method="post" action="{{route('emile')}}" class="m-2 ">
-            <div class=" m-4 d-flex gap-1 justify-content-end">
+            <div class=" m-4 d-flex gap-1 justify-content-end align-items-center">
                 <label for="email" class="">Ask for login data: </label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
+                <input type="email" class="form-control h-25 p-2 " id="email" name="email" placeholder="email" required>
                 @csrf
-                <button type="submit" class="btn btn-outline-secondary add-button">Send</button>
+                <button type="submit" class="btn btn-outline-secondary add-button h-25">Send</button>
             </div>
         </form>
          <a class="m-2 text-black" href="https://github.com/kauste/cosmos" target="_blank">See the code</a>

@@ -39,7 +39,7 @@ class MineController extends Controller
         $old = $request->old() != [] ? $request->old() : null;
         $countries = Mine::join('countries', 'mines.country_id', '=', 'countries.id')
                             ->select('countries.country_name', 'countries.id as id','countries.amount_of_mines', DB::raw('COUNT(country_name) as count'))
-                            ->groupBy('countries.country_name', 'countries.amount_of_mines', 'cosmos.countries.id')
+                            ->groupBy('countries.country_name', 'countries.amount_of_mines', 'countries.id')
                             ->havingRaw('COUNT(country_name) < amount_of_mines')
                             ->orderBy('country_name')
                             ->get();
