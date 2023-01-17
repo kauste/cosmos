@@ -1,0 +1,1 @@
+<div>Cosmos login request from: {{$email}}</div>

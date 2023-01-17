@@ -5,7 +5,7 @@
     <div class="row p-0 p-xl-3">
     <div class="align-items-center d-flex flex-column-reverse flex-md-row justify-content-end">
         @if(!auth()->user()?->id)
-        <form method="post" action="{{route('emile')}}" class="m-2 ">
+        <form method="post" action="{{route('email')}}" class="m-2 ">
             <div class=" m-4 d-flex gap-1 justify-content-end align-items-center">
                 <label for="email" class="">Ask for login data: </label>
                 <input type="email" class="form-control h-25 p-2 " id="email" name="email" placeholder="email" required>

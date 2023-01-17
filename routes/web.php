@@ -27,7 +27,7 @@ Auth::routes(['register'=>false]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [FirstPageController::class, 'index'])->name('index');
-Route::post('/emile', [FirstPageController::class, 'emile'])->name('emile');
+Route::post('/email', [FirstPageController::class, 'email'])->name('email');
 //countries
 Route::prefix('countries')->name('country-')->group(function () {
 Route::get('/', [CountryController::class, 'index'])->name('list');
